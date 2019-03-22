@@ -40,7 +40,7 @@ const countries = [
     'Congo (Brazzaville)',
     'Congo',
     'Costa Rica',
-    "Cote d'Ivoire",
+    "Côte d'Ivoire",
     'Croatia',
     'Cuba',
     'Cyprus',
@@ -194,7 +194,8 @@ const countries = [
     'Zimbabwe',
 ];
 
-const resultsSection = document.querySelector(".results-section");
+const resultsSection = document.querySelector('.results-section');
+const numberTotal = document.querySelector('#number-total');
 let resultDivs;
 
 let H = Math.floor(Math.random() * countries.length);
@@ -202,8 +203,11 @@ let S = 100;
 let L = 80;
 
 function init() {
+
+    numberTotal.textContent = countries.length;
+
     for (let i = 0; i < countries.length; i++) {
-        const resultDiv = document.createElement("div");
+        const resultDiv = document.createElement('div');
         resultDiv.className = 'result-div';
         resultsSection.appendChild(resultDiv);
         resultDiv.textContent = countries[i];

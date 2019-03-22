@@ -1,10 +1,10 @@
 # Title
 
-Title
+Country Spectrum
 
 ## Demo
 
-Link
+https://xurxe.github.io/Integrify-5d-rainbow-world/
 
 ## Author
 
@@ -16,4 +16,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-Sentence
+Everyone at [Integrify](https://github.com/Integrify-Finland), especially my teacher and classmates.
