@@ -202,6 +202,9 @@ searchBox.style.margin = '0.2rem 0 1.5rem';
 searchBox.style.padding = '0.4rem 0.6rem';
 searchBox.style.width = '100%';
 
+const searchModeOptions = document.querySelectorAll('input[name=searchMode]');
+console.log(searchModeOptions);
+
 const resultsSection = document.querySelector('.results-section');
 let count = 0;
 let string = "";
@@ -212,15 +215,7 @@ let H = Math.floor(Math.random() * countries.length);
 let S = 100;
 let L = 80;
 
-const radioButtons = document.querySelectorAll('input[name=searchMode]');
-
-for (let i; i < radioButtons.length; i++) {
-    radioButtons[i].addEventListener('click', search);
-}
-
 function init() {
-    searchMode = document.querySelector('input[name=searchMode]:checked');
-
     numberTotal.textContent = countries.length;
 
     for (let i = 0; i < countries.length; i++) {
@@ -239,15 +234,17 @@ function init() {
 
 function search() {
     searchMode = document.querySelector('input[name=searchMode]:checked');
-    console.log(searchMode.value)
+    console.log(searchMode.value);
 
     if (searchMode.value === "startsWith") {
-        console.log(1);
+        findStartsWith();
         searchBox.addEventListener('keyup', findStartsWith);
+
+
     }
 
     else if (searchMode.value === "contains") {
-        console.log(2);
+        findContains();
         searchBox.addEventListener('keyup', findContains);
     }
 
@@ -322,4 +319,9 @@ function findContains(string) {
 };
 
 init();
-searchBox.addEventListener('keyup', search);
+
+searchBox.addEventListener('focus', search);
+
+for (let i = 0; i < searchModeOptions.length; i++) {
+    searchModeOptions[i].addEventListener('click', search);
+}
