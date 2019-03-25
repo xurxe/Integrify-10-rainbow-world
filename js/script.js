@@ -194,15 +194,32 @@ const countries = [
     'Zimbabwe',
 ];
 
-const resultsSection = document.querySelector('.results-section');
 const numberTotal = document.querySelector('#number-total');
+
+const searchBox = document.querySelector('#search-box');
+searchBox.style.fontSize = '1rem';
+searchBox.style.margin = '0.2rem 0 1.5rem';
+searchBox.style.padding = '0.4rem 0.6rem';
+searchBox.style.width = '100%';
+
+const resultsSection = document.querySelector('.results-section');
+let count = 0;
+let string = "";
+let resultSentence = document.querySelector('#result-sentence');
 let resultDivs;
 
 let H = Math.floor(Math.random() * countries.length);
 let S = 100;
 let L = 80;
 
+const radioButtons = document.querySelectorAll('input[name=searchMode]');
+
+for (let i; i < radioButtons.length; i++) {
+    radioButtons[i].addEventListener('click', search);
+}
+
 function init() {
+    searchMode = document.querySelector('input[name=searchMode]:checked');
 
     numberTotal.textContent = countries.length;
 
@@ -216,37 +233,93 @@ function init() {
         let hsl = `hsl(${newH}, ${S}%, ${L}%)`;
         resultDiv.style.background = hsl;
     }
+
     resultDivs = document.querySelectorAll('.result-div');
 }
 
-function findContains(string) {
-    let regex = new RegExp(string, 'ig');
+function search() {
+    searchMode = document.querySelector('input[name=searchMode]:checked');
+    console.log(searchMode.value)
 
-    for (i = 0; i < countries.length; i++) {
-        if (countries[i].match(regex)) {
-            resultDivs[i].style.display = 'block';
-        }
-
-        else {
-            resultDivs[i].style.display = 'none';
-        }
+    if (searchMode.value === "startsWith") {
+        console.log(1);
+        searchBox.addEventListener('keyup', findStartsWith);
     }
+
+    else if (searchMode.value === "contains") {
+        console.log(2);
+        searchBox.addEventListener('keyup', findContains);
+    }
+
 };
 
-function findStartsWith(string) {
+function findStartsWith() {
+    string = searchBox.value;
     let regex = new RegExp('^' + string, 'ig');
+    count = 0;
 
     for (i = 0; i < countries.length; i++) {
         if (countries[i].match(regex)) {
             resultDivs[i].style.display = 'block';
+            count++;
         }
 
         else {
             resultDivs[i].style.display = 'none';
         }
     }
+
+    if (string === "") {
+        resultSentence.innerHTML = 'Type above to filter results!';
+        return;
+    }
+
+    else if (count === 0) {
+        resultSentence.innerHTML = `There aren't any countries starting with <span id="search-string">&ldquo;${string}&rdquo;</span>`;
+        return;
+
+    }
+
+    else {
+        resultSentence.innerHTML = `There are <span id="result-count">${count}</span> countries starting with <span id="search-string">&ldquo;${string}&rdquo;</span>`;
+        return;
+    };
+};
+
+function findContains(string) {
+    string = searchBox.value;
+    let regex = new RegExp(string, 'ig');
+    count = 0;
+
+    for (i = 0; i < countries.length; i++) {
+        if (countries[i].match(regex)) {
+            resultDivs[i].style.display = 'block';
+            count++;
+        }
+
+        else {
+            resultDivs[i].style.display = 'none';
+        }
+    }
+
+    if (string === "") {
+        resultSentence.innerHTML = 'Type above to filter results!';
+        return;
+
+    }
+
+    else if (count === 0) {
+        resultSentence.innerHTML = `There aren't any countries starting with <span id="search-string">&ldquo;${string}&rdquo;</span>`;
+        return;
+
+    }
+
+    else {
+        resultSentence.innerHTML = `There are <span id="result-count">${count}</span> countries containing <span id="search-string">&ldquo;${string}&rdquo;</span>`;
+        return;
+
+    };
 };
 
 init();
-
-
+searchBox.addEventListener('keyup', search);

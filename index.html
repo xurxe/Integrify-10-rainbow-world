@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <title>Country Spectrum</title>
+        <title>Rainbow World</title>
         <meta name="description" content="Description" />
         <meta name="keywords" content="Keyword" />
 
@@ -22,15 +22,40 @@
     <body>
 
         <header>
-            <h1>Country Spectrum</h1>
+            <h1>Rainbow World</h1>
         </header>
 
         <main>
             <section class="search-section">
-                <p>Countries on the spectrum: <span id="number-total"></span></p>
+                <p>
+                    Countries on the spectrum: <span id="number-total"></span>
+                </p>
+                
+                <input type="text" id="search-box" required>
+
+                <fieldset>
+                    <div class="radio">
+                        <input type='radio' id="startsWith" name="searchMode" value="startsWith" checked>
+                        <label for= "startsWith">Starts with</label>
+
+                        <input type='radio' id="contains" name="searchMode" value="contains">
+                        <label for= "contains">Contains</label>
+
+                    </div>
+
+                </fieldset>
+
+                <fieldset>
+                    <button id="order-button">A-Z</button>
+                    <button id="reset-button">Reset</button>
+                </fieldset>
+
+
             </section>
 
-            <section class="results-section"></section>
+            <section class="results-section">
+                <p id="result-sentence">Type above to filter results!</p>
+            </section>
 
         </main>
 
