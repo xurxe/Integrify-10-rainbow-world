@@ -1,6 +1,6 @@
-# Title
+# Rainbow World
 
-Country Spectrum
+Search for countries in the spectrum
 
 ## Demo
 

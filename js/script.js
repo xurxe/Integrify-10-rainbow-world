@@ -1,3 +1,5 @@
+/* GLOBAL VARIABLES ******************************************************** */
+
 const countries = [
     'Afghanistan',
     'Albania',
@@ -197,23 +199,35 @@ const countries = [
 const numberTotal = document.querySelector('#number-total');
 
 const searchBox = document.querySelector('#search-box');
-searchBox.style.fontSize = '1rem';
-searchBox.style.margin = '0.2rem 0 1.5rem';
-searchBox.style.padding = '0.4rem 0.6rem';
-searchBox.style.width = '100%';
 
 const searchModeOptions = document.querySelectorAll('input[name=searchMode]');
-console.log(searchModeOptions);
 
 const resultsSection = document.querySelector('.results-section');
+
 let count = 0;
+
 let string = "";
+
 let resultSentence = document.querySelector('#result-sentence');
+
 let resultDivs;
 
 let H = Math.floor(Math.random() * countries.length);
 let S = 100;
 let L = 80;
+
+
+
+/* STYLES ****************************************************************** */
+
+searchBox.style.fontSize = '1rem';
+searchBox.style.margin = '0.2rem 0 1.5rem';
+searchBox.style.padding = '0.4rem 0.6rem';
+searchBox.style.width = '100%';
+
+
+
+/* FUNCTIONS *************************************************************** */
 
 function init() {
     numberTotal.textContent = countries.length;
@@ -230,25 +244,37 @@ function init() {
     }
 
     resultDivs = document.querySelectorAll('.result-div');
+    resultsSection.style.flexDirection = 'column';
+
+    searchBox.addEventListener('input', search);
+
+    for (let i = 0; i < searchModeOptions.length; i++) {
+        searchModeOptions[i].addEventListener('click', search);
+    };
 }
+
+init();
+
+
 
 function search() {
     searchMode = document.querySelector('input[name=searchMode]:checked');
-    console.log(searchMode.value);
 
     if (searchMode.value === "startsWith") {
         findStartsWith();
-        searchBox.addEventListener('keyup', findStartsWith);
-
-
+        searchBox.addEventListener('input', findStartsWith);
+        return;
     }
 
     else if (searchMode.value === "contains") {
         findContains();
-        searchBox.addEventListener('keyup', findContains);
+        searchBox.addEventListener('input', findContains);
+        return;
     }
 
 };
+
+
 
 function findStartsWith() {
     string = searchBox.value;
@@ -274,14 +300,21 @@ function findStartsWith() {
     else if (count === 0) {
         resultSentence.innerHTML = `There aren't any countries starting with <span id="search-string">&ldquo;${string}&rdquo;</span>`;
         return;
+    }
 
+    else if (count === 1) {
+        resultSentence.innerHTML = `There is 1 country starting with <span id="search-string">&ldquo;${string}&rdquo;</span>`;
+        return;
     }
 
     else {
         resultSentence.innerHTML = `There are <span id="result-count">${count}</span> countries starting with <span id="search-string">&ldquo;${string}&rdquo;</span>`;
         return;
     };
+
 };
+
+
 
 function findContains(string) {
     string = searchBox.value;
@@ -306,9 +339,13 @@ function findContains(string) {
     }
 
     else if (count === 0) {
-        resultSentence.innerHTML = `There aren't any countries starting with <span id="search-string">&ldquo;${string}&rdquo;</span>`;
+        resultSentence.innerHTML = `There aren't any countries containing <span id="search-string">&ldquo;${string}&rdquo;</span>`;
         return;
+    }
 
+    else if (count === 1) {
+        resultSentence.innerHTML = `There is 1 country containing <span id="search-string">&ldquo;${string}&rdquo;</span>`;
+        return;
     }
 
     else {
@@ -318,10 +355,25 @@ function findContains(string) {
     };
 };
 
-init();
+/* 
+const orderButton = document.querySelector('#order-button');
 
-searchBox.addEventListener('focus', search);
+function getDisplayed() {
+    displayed = [];
+    for (i = 0; i < countries.length; i++) {
+        if (resultDivs[i].style.display = 'block') {
+            displayed.push(resultDivs[i])
+        }
+    }
 
-for (let i = 0; i < searchModeOptions.length; i++) {
-    searchModeOptions[i].addEventListener('click', search);
+    console.log(displayed);
 }
+
+function reverseOrder() {
+    displayed = getDisplayed();
+    console.log (displayed);
+};
+
+orderButton.addEventListener('click', reverseOrder);
+
+ */
