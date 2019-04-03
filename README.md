@@ -4,7 +4,7 @@ Search for countries in the spectrum
 
 ## Demo
 
-https://xurxe.github.io/Integrify-5d-rainbow-world/
+https://xurxe.github.io/Integrify-10-rainbow-world/
 
 ## Author
 
